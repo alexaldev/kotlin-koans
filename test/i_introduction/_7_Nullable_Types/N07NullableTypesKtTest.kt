@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class N07NullableTypesKtTest {
+
     private fun testSendMessageToClient(
         client: Client?,
         message: String?,
         email: String? = null,
-        shouldBeInvoked: Boolean = false
-    ) {
+        shouldBeInvoked: Boolean = false) {
+
         var invoked = false
         sendMessageToClient(client, message, object : Mailer {
             override fun sendMessage(actualEmail: String, actualMessage: String) {
