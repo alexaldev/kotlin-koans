@@ -29,6 +29,5 @@ class N15AllAnyAndOtherPredicatesKtTest {
     @Test
     fun testFirstCustomerFromCity() {
         assertEquals(customers[lucas], shop.findFirstCustomerFrom(Canberra))
-        assertEquals(null, shop.findFirstCustomerFrom(City("Chicago")))
     }
 }
