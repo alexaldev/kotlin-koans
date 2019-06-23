@@ -12,8 +12,6 @@ fun example8() {
 
 fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set<Customer> {
     // Return customers who have more undelivered orders than delivered
-    val (deliveredOrders, notDeliveredOrders) = this.customers.flatMap{it.orders}.partition{it.isDelivered}
-
     return this.customers.filter {
         val (delivered, notDelivered) = it.orders.partition { it.isDelivered }
         notDelivered.size > delivered.size

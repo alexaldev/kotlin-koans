@@ -4,9 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import util.JavaCode;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.maxBy;
 
 public class _24_JavaCode extends JavaCode {
     public Collection<String> doSomethingStrangeWithCollection(Collection<String> collection) {
