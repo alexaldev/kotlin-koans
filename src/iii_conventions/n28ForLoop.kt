@@ -2,6 +2,7 @@ package iii_conventions
 
 import util.TODO
 import util.doc28
+import java.util.*
 
 fun iterateOverCollection(collection: Collection<Int>) {
     for (element in collection) {
@@ -37,8 +38,9 @@ fun todoTask28(): Nothing = TODO(
 
 
 fun iterateOverDateRange(firstDate: MyDate, secondDate: MyDate, handler: (MyDate) -> Unit) {
-    todoTask28()
-//    for (date in firstDate..secondDate) {
-//        handler(date)
-//    }
+    for (date in firstDate..secondDate) {
+        handler(date)
+    }
 }
+
+
