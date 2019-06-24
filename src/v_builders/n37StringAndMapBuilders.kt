@@ -27,12 +27,18 @@ fun todoTask37(): Nothing = TODO(
     """
 )
 
+fun buildMap(build: HashMap<Int, String>.() -> Unit): HashMap<Int, String> {
+
+    val resultMap = HashMap<Int, String>()
+    resultMap.build()
+    return resultMap
+}
+
 fun task37(): Map<Int, String> {
-    todoTask37()
-//    return buildMap {
-//        put(0, "0")
-//        for (i in 1..10) {
-//            put(i, "$i")
-//        }
-//    }
+    return buildMap {
+        put(0, "0")
+        for (i in 1..10) {
+            put(i, "$i")
+        }
+    }
 }
