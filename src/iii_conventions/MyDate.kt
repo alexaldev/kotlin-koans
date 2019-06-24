@@ -1,5 +1,7 @@
 package iii_conventions
 
+import com.google.common.collect.Iterators
+
 data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int): Comparable<MyDate> {
     override fun compareTo(other: MyDate): Int = when {
         year != other.year -> year - other.year
@@ -19,17 +21,19 @@ enum class TimeInterval {
     YEAR
 }
 
-class DateRangeIterator(val startDate: MyDate, val endDate: MyDate): Iterator<MyDate> {
+class RepeatedTimeInterval(val timeInterval: TimeInterval, val times: Int)
 
-    private var currentDate = startDate
+operator fun TimeInterval.times(times: Int): RepeatedTimeInterval = RepeatedTimeInterval(this, times)
 
-    override fun hasNext(): Boolean {
+operator fun MyDate.plus(interval: TimeInterval) = this.addTimeIntervals(interval, 1)
 
-        if ( startDate > endDate)
-            return false
+operator fun MyDate.plus(repeatedTimeInterval: RepeatedTimeInterval) = this.addTimeIntervals(repeatedTimeInterval.timeInterval, repeatedTimeInterval.times)
 
-        return currentDate <= endDate
-    }
+class DateRangeIterator(val dateRange: DateRange): Iterator<MyDate> {
+
+    private var currentDate = dateRange.start
+
+    override fun hasNext(): Boolean  = currentDate <= dateRange.endInclusive
 
     override fun next(): MyDate {
 
@@ -39,14 +43,18 @@ class DateRangeIterator(val startDate: MyDate, val endDate: MyDate): Iterator<My
     }
 }
 
-class DateRange(val start: MyDate, val endInclusive: MyDate) {
+class DateRange(val start: MyDate, val endInclusive: MyDate): Iterable<MyDate> {
 
     operator fun contains(date: MyDate): Boolean = when {
         start > endInclusive -> false
         else -> (date >= start && date <= endInclusive)
     }
 
-    operator fun iterator(): Iterator<MyDate> {
-        return DateRangeIterator(start, endInclusive)
+    override operator fun iterator(): Iterator<MyDate> {
+
+        if ( start > endInclusive)
+            return Iterators.emptyIterator()
+
+        return DateRangeIterator(this)
     }
 }
